@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбранные услуги</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .nav { margin-bottom: 20px; }
+        .nav a { text-decoration: none; color: #3182ce; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f7fafc; color: #4a5568; }
+        .total { font-size: 22px; text-align: right; font-weight: bold; color: #2d3748; margin-top: 20px; }
+        .btn { display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px; }
+        .clear-btn { background-color: #e53e3e; color: white; }
+        .order-btn { background-color: #38a169; color: white; float: right; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="nav">
+            <a href="/catalog">← Вернуться к прайс-листу</a>
+        </div>
+
+        <h2>🛒 Выбранные услуги (Корзина)</h2>
+
+        {% if not cart_items %}
+            <p>Вы еще не выбрали ни одной услуги.</p>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название услуги</th>
+                        <th>Количество</th>
+                        <th>Стоимость</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }} шт.</td>
+                        <td>
+                            {% if item.product.price == 0 %}
+                                Бесплатно
+                            {% else %}
+                                {{ item.item_total }} ₽
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="total">
+                Итого к оплате: {{ total_price }} ₽
+            </div>
+
+            <a href="/clear_cart" class="btn clear-btn">Очистить список</a>
+            <a href="#" class="btn order-btn" onclick="alert('Заявка успешно оформлена! Наш мастер свяжется с вами.')">Оформить заказ услуг</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>
