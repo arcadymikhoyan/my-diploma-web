@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ремонт компьютеров и периферии</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
+        .nav { margin-bottom: 20px; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .nav a { margin-right: 15px; text-decoration: none; color: #3182ce; font-weight: bold; }
+        .nav a:hover { color: #2b6cb0; }
+        h1 { color: #2d3748; text-align: center; margin-bottom: 40px; font-size: 28px; }
+        .catalog-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .card { background: white; width: 280px; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+        .price { font-size: 20px; color: #2f855a; font-weight: bold; margin: 10px 0; }
+        .buy-btn { display: inline-block; background-color: #3182ce; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.2s; }
+        .buy-btn:hover { background-color: #2b6cb0; }
+        h3 { font-size: 18px; color: #2d3748; min-height: 50px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a href="/catalog">📋 Прайс-лист услуг</a>
+        <a href="/cart">🛒 Выбранные услуги</a>
+    </div>
+
+    <h1>Ремонт компьютеров и периферийного компьютерного оборудования</h1>
+
+    <div class="catalog-container">
+        {% for product in products %}
+        <div class="card">
+            <img src="{{ product.image }}" 
+                 alt="{{ product.name }}" 
+                 style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+            
+            <h3>{{ product.name }}</h3>
+            
+            <p class="price">
+                {% if product.price == 0 %}
+                    Бесплатно
+                {% else %}
+                    от {{ product.price }} ₽
+                {% endif %}
+            </p>
+            
+            <a href="/add_to_cart/{{ product.id }}" class="buy-btn">Заказать услугу</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
